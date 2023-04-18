@@ -36,12 +36,15 @@ int cd_reprogramming(base_minishell_t *base, char **tab)
     int i = 0;
     for (i = 0; tab[i] != NULL; i += 1);
     if (i == 1){
-        move_to_home(base);
-    } else if (i > 2) {
+        if (move_to_home(base) != OK)
+            return 1;
+        return OK;
+    }
+    if (i > 2) {
         write(2, "cd: Too many arguments.\n", 24);
         return 1;
-    } else {
-        cd_checker(base, tab);
     }
+    if (cd_checker(base, tab) != OK)
+        return KO;
     return OK;
 }

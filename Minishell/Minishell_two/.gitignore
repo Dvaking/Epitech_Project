@@ -1,5 +1,7 @@
-*.a
+.*
 *.o
-mysh
-coding-style*
+*.a
+
 vgcore*
+coding-style*
+mysh

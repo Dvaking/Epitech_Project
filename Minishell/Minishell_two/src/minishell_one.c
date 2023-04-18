@@ -24,17 +24,17 @@ static void add_value(need_tab_t *need_tab)
 }
 
 static int minishell_two(base_minishell_t *base, need_tab_t *need_tab,
-int *nbr_parameter, int *exit)
+int *nbr_parameter)
 {
     if (base == NULL || need_tab == NULL)
         return 1;
     if (*nbr_parameter == 0){
         base->yes_or_not = 0;
-        if (check_command_and_execute(base, need_tab, exit) != 0)
+        if (check_command_and_execute(base, need_tab) != 0)
                 return 1;
     } else {
         base->yes_or_not = 1;
-        if (command_with_parameter(base, need_tab, exit) != OK)
+        if (command_with_parameter(base, need_tab) != OK)
             return 1;
         if (free_big_tab(base->p_command) != OK)
             return 1;
@@ -48,21 +48,21 @@ int *nbr_parameter, int *exit)
 static int minishell_one_sub(base_minishell_t *base, char **env)
 {
     need_tab_t *need_tab = malloc(sizeof(need_tab_t));
-    int exit = 0;
+    base->exit = 0;
     int echo_or_not = 0;
     add_value(need_tab);
     int restart = 0;
     int nbr_parameter = 0;
     if (base == NULL || env == NULL)
         return 1;
-    while (exit != 1){
+    while (base->exit != 1){
         if ((echo_or_not = starting()) == -1)
             return 1;
         if (take_entry(base, env, &restart, &nbr_parameter) != OK)
             break;
         if (restart == 1)
             continue;
-        if (minishell_two(base, need_tab, &nbr_parameter, &exit) != OK)
+        if (minishell_two(base, need_tab, &nbr_parameter) != OK)
             return 1;
     }
     free(need_tab);

@@ -32,6 +32,12 @@ char **tab)
     if (base == NULL || need_tab == NULL)
         return KO;
     duplicate_fonction(base, need_tab);
+    if (base->yes_or_not == 1){
+        if (fonction_build(base, need_tab, tab) == OK){
+            free_all(base, need_tab);
+            exit(0);
+        }
+    }
     execve(tab[0], tab, base->env);
     if (tab[0][0] != '.' && tab[0][1] != '/'){
         for (int i = 0; base->path[i] != NULL; i += 1){
@@ -42,9 +48,7 @@ char **tab)
     }
     write(2, tab[0], my_strlen(tab[0]));
     write(2, ": Command not found.\n", 21);
-    free_tab_char(base->command);
-    free_tab_char(base->env);
-    free_tab_char(base->path);
+    free_all(base, need_tab);
     exit(1);
 }
 

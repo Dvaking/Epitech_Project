@@ -36,12 +36,12 @@ int *reprograming_command)
     return OK;
 }
 
-static int check_reprograming_command(base_minishell_t *base, int *exit,
+static int check_reprograming_command(base_minishell_t *base,
 int *reprograming_command)
 {
     if (my_strncmp("exit", base->command[0], 4) == OK){
         *reprograming_command = 1;
-        *exit = 1;
+        base->exit = 1;
         return OK;
     }
     if (my_strncmp("env", base->command[0], 3) == OK){
@@ -55,13 +55,12 @@ int *reprograming_command)
     return OK;
 }
 
-int check_command_and_execute(base_minishell_t *base, need_tab_t *need_tab,
-int *exit)
+int check_command_and_execute(base_minishell_t *base, need_tab_t *need_tab)
 {
     int reprograming_command = 0;
     if (base == NULL)
         return KO;
-    if (check_reprograming_command(base, exit, &reprograming_command) != 0)
+    if (check_reprograming_command(base, &reprograming_command) != 0)
         return KO;
     if (reprograming_command != 0)
         return OK;

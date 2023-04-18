@@ -15,6 +15,7 @@
         char **env;
         int return_value;
         int yes_or_not;
+        int exit;
     } base_minishell_t;
 
     typedef struct need_tab {

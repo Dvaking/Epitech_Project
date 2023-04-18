@@ -66,12 +66,13 @@ int nbr_parameter)
     char **tab;
     if (str == NULL)
         return NULL;
-    for (int i = 0; str[i] != '\0' && len_word > i;  i += 1){
+    for (int i = 0; str[i] != '\0' && i < len_word;  i += 1){
         if (condition_separator(str, i, separator) == 1)
             continue;
         count_word += 1;
         for (j = i; str[j] != '\0' &&
-        condition_separator(str, j, separator) != 1; j += 1);
+        condition_separator(str, j, separator) != 1 && len_word > j &&
+        str[j] != '\0'; j += 1);
         i = j;
     }
     count_word += nbr_parameter;

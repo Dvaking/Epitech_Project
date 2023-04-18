@@ -5,37 +5,63 @@
 ## makefile
 ##
 
-SRC			=	src/main.c											\
-				src/minishell_one.c									\
-				src/toolbox/take_env.c								\
-				src/toolbox/take_entry.c							\
-				src/toolbox/starting.c								\
-				src/toolbox/parameter.c								\
-				src/toolbox/free.c									\
-				src/all_tab/reduce_tab.c							\
-				src/all_tab/enlarge_tab.c							\
-				src/all_tab/modif_or_add_array_to_tab.c				\
-				src/all_tab/check_parameter_and_modif_tab.c			\
-				src/all_tab/remove_of_tab.c							\
-				src/all_tab/entry_w_parameter_or_not.c				\
-				src/all_command/command.c							\
-				src/all_command/fonction_build.c					\
-				src/all_command/command_checker.c					\
-				src/all_command/env.c								\
-				src/all_command/command_with_parameter.c			\
-				src/all_command/duplicate_and_close_pipe.c			\
-				src/all_command/string_command.c					\
-				src/all_command/child_display_parameter.c			\
-				src/all_command/cd.c								\
-				src/all_command/unsetenv_setenv.c					\
-				src/all_cd/move_in_folder.c							\
-				src/error_handing/check_argc_argv.c					\
-				src/error_handing/check_pipe.c						\
-				src/error_handing/error_message_cmd.c				\
-				src/error_handing/error_message_for_redirector.c	\
-				src/error_handing/check_redirector.c
+SRC			=	main.c					\
+				minishell_one.c			\
+				all_cd/move_in_folder.c	\
+				all_cd/cd.c
 
-OBJ			=	$(SRC:.c=.o)
+SRC_TOOLBOX	=	take_env.c		\
+				take_entry.c	\
+				starting.c		\
+				parameter.c		\
+				free.c
+
+SRC_TAB		=	reduce_tab.c					\
+				enlarge_tab.c					\
+				modif_or_add_array_to_tab.c		\
+				check_parameter_and_modif_tab.c	\
+				remove_of_tab.c					\
+				entry_w_parameter_or_not.c
+
+SRC_COMMAND	=	command.c									\
+				command_checker.c							\
+				env.c										\
+				unsetenv_setenv.c							\
+				string_command.c							\
+				with_parameter/fonction_build.c				\
+				with_parameter/command_with_parameter.c		\
+				with_parameter/child_display_parameter.c	\
+				with_parameter/duplicate_and_close_pipe.c	\
+				with_parameter/fonction_build_checker.c
+
+
+SRC_ERROR	=	check_argc_argv.c				\
+				check_pipe.c					\
+				error_message_cmd.c				\
+				error_message_for_redirector.c	\
+				check_redirector.c
+
+DIR_SRC		=	$(addprefix src/, $(SRC))
+
+DIR_TAB		=	$(addprefix src/tab/, $(SRC_TAB))
+
+DIR_COMMAND	=	$(addprefix src/command/, $(SRC_COMMAND))
+
+DIR_TOOLBOX	=	$(addprefix src/toolbox/, $(SRC_TOOLBOX))
+
+DIR_ERROR	=	$(addprefix src/error_handing/, $(SRC_ERROR))
+
+OBJ_SRC		=	$(DIR_SRC:.c=.o)
+
+OBJ_TAB		=	$(DIR_TAB:.c=.o)
+
+OBJ_COMMAND	=	$(DIR_COMMAND:.c=.o)
+
+OBJ_TOOLBOX	=	$(DIR_TOOLBOX:.c=.o)
+
+OBJ_ERROR	=	$(DIR_ERROR:.c=.o)
+
+OBJ			=	$(OBJ_SRC) $(OBJ_TAB) $(OBJ_COMMAND) $(OBJ_ERROR) $(OBJ_TOOLBOX)
 
 NAME		=	mysh
 
@@ -45,13 +71,19 @@ LMY			=	-lmy
 
 CPPFLAGS	=	-I./includes/ -ggdb3
 
+DEBUG		=	
+
 LCRITER		= -lcriterion
 
 $(NAME): $(OBJ)
 	make -C lib/my/
-	gcc -o $@ $^ $(CPPFLAGS) ${LDLIB} ${LMY}
+	gcc -o $@ $^ $(LDLIB) $(LMY)
 
 all: $(NAME)
+
+debug : $(OBJ)
+	make -C lib/my
+	gcc -o $(NAME) $^ $(DEBUG) $(LDLIB) $(LMY)
 
 clean:
 	rm -f $(OBJ)

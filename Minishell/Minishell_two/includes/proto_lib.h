@@ -14,6 +14,8 @@
     char *my_strcat(char *dest, char const *src);
     char **my_str_to_word_array(char const *str);
     char **my_splitstr(char const *str, int separator);
+    char **my_complexspliter(char const *str, char *separator,
+    int nbr_parameter);
 
     int my_tablen(char **tab);
     int my_strncmp(char const *s1, char const *s2, int n);

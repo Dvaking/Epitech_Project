@@ -35,13 +35,13 @@ int free_tab_char(char **tab)
     return OK;
 }
 
-int free_tab_int(int **tab)
+int free_tab_int(need_tab_t *need_tab)
 {
-    if (tab == NULL)
+    if (need_tab == NULL)
         return KO;
-    for (int i = 0; tab[i] != NULL; i += 1)
-        free(tab[i]);
-    free(tab);
+    for (int i = 0; i < need_tab->nbr_parameter; i += 1)
+        free(need_tab->fd[i]);
+    free(need_tab->fd);
     return OK;
 }
 
@@ -53,11 +53,8 @@ int free_str(all_str_t *all_str)
 
 int free_all(base_minishell_t *base, need_tab_t *need_tab)
 {
-    free_big_tab(base->p_command);
-    free_tab_char(base->command);
     free_tab_char(base->env);
     free_tab_char(base->path);
-    free_tab_int(need_tab->fd);
     free(need_tab);
     free(base);
 }

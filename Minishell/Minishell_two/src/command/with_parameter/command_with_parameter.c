@@ -28,6 +28,7 @@ static int initialisation_value(base_minishell_t *base, need_tab_t *need_tab)
     if ((need_tab->fd = malloc(sizeof(int *) * (need_tab->nbr_parameter)))
     == NULL)
         return KO;
+    need_tab->fd[need_tab->nbr_parameter - 1] = NULL;
     for (int x = 0; x < need_tab->nbr_parameter; x ++){
         if ((need_tab->fd[x] = malloc(sizeof(int) * 2)) == NULL)
             return KO;
@@ -47,8 +48,10 @@ static int malloc_pipe(need_tab_t *need_tab)
 }
 
 static int command_with_parameter_sub(base_minishell_t *base,
-need_tab_t *need_tab, int *exit)
+need_tab_t *need_tab)
 {
+    if (base == NULL || need_tab == NULL)
+        return KO;
     if (need_tab->nbr_parameter == 0)
         base->yes_or_not = 0;
     else{
@@ -62,23 +65,25 @@ need_tab_t *need_tab, int *exit)
             continue;
         }
         need_tab->tab_pos_x = x;
-        if (child_display_parameter(base, need_tab, exit) != OK)
+        if (child_display_parameter(base, need_tab) != OK)
             return KO;
     }
     return OK;
 }
 
-int command_with_parameter(base_minishell_t *base, need_tab_t *need_tab,
-int *exit)
+int command_with_parameter(base_minishell_t *base, need_tab_t *need_tab)
 {
+    if (base == NULL || need_tab == NULL)
+        return KO;
     for (int y = 0; base->p_command[y] != NULL; y += 1){
         base->yes_or_not = 1;
         need_tab->tab_pos_y = y;
         if (initialisation_value(base, need_tab) != OK)
             return KO;
         base->return_value = 0;
-        if (command_with_parameter_sub(base, need_tab, exit) != OK)
+        if (command_with_parameter_sub(base, need_tab) != OK)
             return KO;
+        free_tab_int(need_tab);
     }
     return OK;
 }
