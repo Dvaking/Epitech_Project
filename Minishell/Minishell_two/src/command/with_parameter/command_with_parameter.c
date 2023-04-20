@@ -68,6 +68,7 @@ need_tab_t *need_tab)
         if (child_display_parameter(base, need_tab) != OK)
             return KO;
     }
+    free_tab_int(need_tab);
     return OK;
 }
 
@@ -83,7 +84,6 @@ int command_with_parameter(base_minishell_t *base, need_tab_t *need_tab)
         base->return_value = 0;
         if (command_with_parameter_sub(base, need_tab) != OK)
             return KO;
-        free_tab_int(need_tab);
     }
     return OK;
 }

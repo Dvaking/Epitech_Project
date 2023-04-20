@@ -8,7 +8,7 @@
 #ifndef STRUCT_H_
     #define STRUCT_H_
 
-        typedef struct base_minishell {
+        typedef struct base_minishell_s {
         char **path;
         char **command;
         char ***p_command;
@@ -18,7 +18,7 @@
         int exit;
     } base_minishell_t;
 
-    typedef struct need_tab {
+    typedef struct need_tab_s {
         int **fd;
         int fd_pos;
         int tab_pos_x;
@@ -28,7 +28,8 @@
         int redirect_arg;
         int aft_arg;
     } need_tab_t;
-    typedef struct all_str {
+
+    typedef struct all_str_s {
         char **p_str;
         char *str;
         int len_str;

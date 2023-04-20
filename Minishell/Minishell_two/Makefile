@@ -7,8 +7,8 @@
 
 SRC			=	main.c					\
 				minishell_one.c			\
-				all_cd/move_in_folder.c	\
-				all_cd/cd.c
+				cd/move_in_folder.c		\
+				cd/cd.c
 
 SRC_TOOLBOX	=	take_env.c		\
 				take_entry.c	\
@@ -28,9 +28,9 @@ SRC_COMMAND	=	command.c									\
 				env.c										\
 				unsetenv_setenv.c							\
 				string_command.c							\
+				child_display.c								\
 				with_parameter/fonction_build.c				\
 				with_parameter/command_with_parameter.c		\
-				with_parameter/child_display_parameter.c	\
 				with_parameter/duplicate_and_close_pipe.c	\
 				with_parameter/fonction_build_checker.c
 
@@ -70,8 +70,6 @@ LDLIB		=	-L./lib/
 LMY			=	-lmy
 
 CPPFLAGS	=	-I./includes/ -ggdb3
-
-DEBUG		=	
 
 LCRITER		= -lcriterion
 

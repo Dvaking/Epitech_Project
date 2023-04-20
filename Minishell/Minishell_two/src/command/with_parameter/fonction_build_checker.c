@@ -22,7 +22,7 @@ char **tab_command, int len_tab)
     return KO;
 }
 
-int fonction_build(base_minishell_t *base, need_tab_t *need_tab, 
+int fonction_build(base_minishell_t *base, need_tab_t *need_tab,
 char **tab_command)
 {
     int len_tab = 0;
@@ -54,7 +54,7 @@ char **tab_command)
         parameter_after_command(base, need_tab) == OK)
             return KO;
         else
-            execution(base, tab_command, 2);
+            execution_fonction_build(base, tab_command, 2);
             return OK;
     }
     return KO;
@@ -67,14 +67,14 @@ char **tab_command)
         if (parameter_after_command(base, need_tab) == OK)
             return OK;
         else
-            execution(base, tab_command, 1);
+            execution_fonction_build(base, tab_command, 1);
         return OK;
     }
     if (my_strncmp("cd", tab_command[0], 2) == OK){
         if (parameter_after_command(base, need_tab) == OK)
             return OK;
         else
-            execution(base, tab_command, 0);
+            execution_fonction_build(base, tab_command, 0);
         return OK;
     }
     if (check_fontion_build_sub(base, need_tab, tab_command) == OK)

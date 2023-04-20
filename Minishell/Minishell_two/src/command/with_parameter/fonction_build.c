@@ -35,7 +35,7 @@ int parameter_after_command(base_minishell_t *base, need_tab_t *need_tab)
     return KO;
 }
 
-int execution(base_minishell_t *base, char **tab, int n)
+int execution_fonction_build(base_minishell_t *base, char **tab, int n)
 {
     if (n == 0){
         if (cd_reprogramming(base, tab) != OK)

@@ -57,9 +57,9 @@
     int duplicate_fonction(base_minishell_t *base, need_tab_t *need_tab);
     int check_fontion_build(base_minishell_t *base, need_tab_t *need_tab,
     char **tab_command);
-    int fonction_build(base_minishell_t *base, need_tab_t *need_tab, 
+    int fonction_build(base_minishell_t *base, need_tab_t *need_tab,
     char **tab_command);
-    int execution(base_minishell_t *base, char **tab, int n);
+    int execution_fonction_build(base_minishell_t *base, char **tab, int n);
     int parameter_after_command(base_minishell_t *base, need_tab_t *need_tab);
     int check_command_and_execute(base_minishell_t *base, need_tab_t *need_tab);
     int command(base_minishell_t *base, need_tab_t *need_tab, char **tab);
@@ -68,6 +68,8 @@
     int print_env(char **env);
     int setenv_reprogramming(base_minishell_t *base, char *variable,
     char *value);
+    int child_display(base_minishell_t *base, need_tab_t *need_tab,
+    pid_t pid, int value);
     int unsetenv_reprogramming(base_minishell_t *base, char *str);
     char *string_command(char *path, char *entry);
 

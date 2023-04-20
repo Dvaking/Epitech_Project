@@ -55,6 +55,9 @@ int free_all(base_minishell_t *base, need_tab_t *need_tab)
 {
     free_tab_char(base->env);
     free_tab_char(base->path);
+    free_tab_char(base->command);
+    if (base->yes_or_not == 1)
+        free_big_tab(base->p_command);
     free(need_tab);
     free(base);
 }
