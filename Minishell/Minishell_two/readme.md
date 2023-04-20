@@ -1,18 +1,7 @@
-# 42sh
+# Minshell 2
 ### General Info
 ***
-Reproduces the terminal with :
-        • inhibitors (‘\’),
-        • globbings (‘*’, ‘?’, ‘[’, ’]’),
-        • job control (‘&’, fg),
-        • backticks (“’),
-        • parentheses (‘(’ and ‘)’),
-        • variables (local and env),
-        • special variables (term, precmd, cwdcmd, cwd, ignoreof for instance),
-        • history (‘!’),
-        • aliases,
-        • line edition (multiline, dynamic rebinding, auto-completion dynamic)
-        • scripting (a bit harsh though)
+Reproduces the terminal with "|" ";" ">>" "<<" ">" "<"
 ## Technologies
 ***
 For this project I use :
@@ -21,7 +10,7 @@ For this project I use :
 ***
 A little intro about the installation. 
 ```
-$ git clone git@github.com:EpitechPromo2027/B-PSU-200-BDX-2-1-42sh-marc.mendia.git
+$ git clone https://github.com/EpitechPromo2027/B-PSU-200-BDX-2-1-minishell1-marc.mendia.git
 $ cd B-PSU-200-BDX-2-1-minishell1-marc.mendia
 $ make
 $ ./mysh
