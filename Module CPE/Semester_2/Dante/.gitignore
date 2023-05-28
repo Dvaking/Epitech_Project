@@ -1,0 +1,7 @@
+.vscode
+*.o
+*.a
+
+vgcore*
+coding-style*
+a.out
